@@ -32,7 +32,7 @@ public class UserService {
         return userResponseList;
     }
 
-    public UserResponse getUser(Long userId) {
+    public UserResponse getUser(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -46,7 +46,7 @@ public class UserService {
         return mapper.map(user, UserResponse.class);
     }
 
-    public UserResponse updateUser(Long userId, UserRequest userRequest) {
+    public UserResponse updateUser(String userId, UserRequest userRequest) {
         User userFromDB = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
