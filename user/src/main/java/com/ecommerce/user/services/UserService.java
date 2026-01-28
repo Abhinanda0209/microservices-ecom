@@ -1,6 +1,5 @@
 package com.ecommerce.user.services;
 
-import com.ecommerce.user.dto.AddressDTO;
 import com.ecommerce.user.dto.UserRequest;
 import com.ecommerce.user.dto.UserResponse;
 import com.ecommerce.user.model.Address;
@@ -10,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -32,11 +32,14 @@ public class UserService {
         return userResponseList;
     }
 
-    public UserResponse getUser(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    public Optional<UserResponse> getUser(String userId) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//
+//        return mapper.map(user, UserResponse.class);
+        Optional<User> user = userRepository.findById(userId);
 
-        return mapper.map(user, UserResponse.class);
+        return Optional.ofNullable(mapper.map(user, UserResponse.class));
     }
 
     public UserResponse createUser(UserRequest userRequest) {
